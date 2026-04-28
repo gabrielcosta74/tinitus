@@ -6,43 +6,53 @@ const PROTECTED = ["/dashboard", "/session", "/sounds", "/coach", "/progress", "
 export async function middleware(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request })
 
-  const supabase = createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll()
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
-          supabaseResponse = NextResponse.next({ request })
-          cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options)
-          )
-        },
-      },
-    }
-  )
-
-  const { data: { user } } = await supabase.auth.getUser()
-
-  const pathname = request.nextUrl.pathname
-  const isProtected = PROTECTED.some((p) => pathname === p || pathname.startsWith(p + "/"))
-
-  if (isProtected && !user) {
-    const url = request.nextUrl.clone()
-    url.pathname = "/auth"
-    url.searchParams.set("next", pathname)
-    return NextResponse.redirect(url)
+  if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+    console.warn("Middleware: Missing Supabase environment variables.")
+    return supabaseResponse
   }
 
-  if (user && pathname === "/auth") {
-    const next = request.nextUrl.searchParams.get("next") ?? "/dashboard"
-    const url = request.nextUrl.clone()
-    url.pathname = next
-    url.search = ""
-    return NextResponse.redirect(url)
+  try {
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      {
+        cookies: {
+          getAll() {
+            return request.cookies.getAll()
+          },
+          setAll(cookiesToSet) {
+            cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
+            supabaseResponse = NextResponse.next({ request })
+            cookiesToSet.forEach(({ name, value, options }) =>
+              supabaseResponse.cookies.set(name, value, options)
+            )
+          },
+        },
+      }
+    )
+
+    const { data: { user } } = await supabase.auth.getUser()
+
+    const pathname = request.nextUrl.pathname
+    const isProtected = PROTECTED.some((p) => pathname === p || pathname.startsWith(p + "/"))
+
+    if (isProtected && !user) {
+      const url = request.nextUrl.clone()
+      url.pathname = "/auth"
+      url.searchParams.set("next", pathname)
+      return NextResponse.redirect(url)
+    }
+
+    if (user && pathname === "/auth") {
+      const next = request.nextUrl.searchParams.get("next") ?? "/dashboard"
+      const url = request.nextUrl.clone()
+      url.pathname = next
+      url.search = ""
+      return NextResponse.redirect(url)
+    }
+  } catch (err) {
+    console.error("Middleware Supabase error:", err)
+    // If Supabase fails, allow the request to continue or fail gracefully
   }
 
   return supabaseResponse
