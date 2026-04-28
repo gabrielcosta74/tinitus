@@ -2,22 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Light Theme (Default) */
+    --background: 40 33% 98%; /* #FDFCF8 (Warm off-white) */
+    --foreground: 240 10% 12%; /* #1C1C1E (Deep charcoal) */
+    
+    --primary: 174 70% 35%; /* Soft, deep teal */
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 35 92% 50%; /* Warm amber accent */
+    --secondary-foreground: 0 0% 100%;
+    
+    --accent: 174 50% 90%; /* Very light sage/teal for backgrounds */
+    --accent-foreground: 174 70% 30%;
+    
+    --muted: 40 20% 92%; /* Subtle warm grey/beige for cards */
+    --muted-foreground: 240 5% 45%;
+    
+    --border: 40 15% 88%;
+    
+    --card: 0 0% 100%; /* Pure white */
+    --card-foreground: 240 10% 12%;
+    
+    --radius: 1rem; /* More rounded, app-like feel */
+  }
+
+  .dark {
+    /* Dark Theme */
+    --background: 240 10% 6%; /* #0E0E10 (Very dark grey/blue) */
+    --foreground: 0 0% 96%;
+    
+    --primary: 174 60% 45%; /* Brighter teal for dark mode */
+    --primary-foreground: 240 10% 6%;
+    
+    --secondary: 35 92% 50%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --accent: 174 30% 15%; /* Dark teal accent bg */
+    --accent-foreground: 174 60% 70%;
+    
+    --muted: 240 8% 12%;
+    --muted-foreground: 240 5% 65%;
+    
+    --border: 240 8% 15%;
+    
+    --card: 240 8% 9%;
+    --card-foreground: 0 0% 96%;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
 }
 
 @layer utilities {
