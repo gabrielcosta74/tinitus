@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState, useCallback } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence, type Variants } from "framer-motion"
 import { CheckinWidget } from "@/components/dashboard/CheckinWidget"
 import { SessionCard } from "@/components/dashboard/SessionCard"
 import { THITrendChart } from "@/components/dashboard/THITrendChart"
@@ -108,7 +108,7 @@ export default function DashboardPage() {
 
   if (!mounted) return null
 
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
@@ -116,7 +116,7 @@ export default function DashboardPage() {
     },
   }
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     show: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 300, damping: 24 } },
   }

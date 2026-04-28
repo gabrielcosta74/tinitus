@@ -26,7 +26,7 @@ export function loadTodaySessionLog(): SessionLog | null {
 }
 
 // --- Exercise library by module (week 1-12) ---
-export function getExercisesForModule(module: string, _therapyWeek: number): Exercise[] {
+export function getExercisesForModule(module: string): Exercise[] {
   const base = BASE_EXERCISES[module] ?? BASE_EXERCISES["Psychoeducation"]
   return base
 }

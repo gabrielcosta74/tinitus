@@ -88,7 +88,7 @@ export default function SessionPage() {
     setTherapyWeek(tw)
     setStreak(s)
 
-    const ex = getExercisesForModule(sessionMod, tw)
+    const ex = getExercisesForModule(sessionMod)
     setExercises(ex)
   }, [])
 
