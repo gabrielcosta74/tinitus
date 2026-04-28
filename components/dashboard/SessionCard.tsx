@@ -70,7 +70,7 @@ export function SessionCard({ plan, loading }: Props) {
 
       {/* Approach note */}
       <div className="bg-amber-50/50 dark:bg-amber-950/20 border border-amber-200/50 dark:border-amber-900/50 rounded-2xl p-5 shadow-sm">
-        <p className="text-foreground/70 text-sm italic leading-relaxed font-serif text-center">"{plan.approach}"</p>
+        <p className="text-foreground/70 text-sm italic leading-relaxed font-serif text-center">&quot;{plan.approach}&quot;</p>
       </div>
 
       {/* Affirmation */}
@@ -85,7 +85,7 @@ export function SessionCard({ plan, loading }: Props) {
           className="w-full h-14 rounded-2xl bg-primary hover:bg-primary/90 text-primary-foreground font-bold text-sm flex items-center justify-center gap-3 transition-all duration-200 group shadow-lg shadow-primary/20"
         >
           <PlayCircle className="w-5 h-5" />
-          Start today's session
+          Start today&apos;s session
           <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
         </Link>
       </motion.div>

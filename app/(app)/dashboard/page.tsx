@@ -64,6 +64,7 @@ export default function DashboardPage() {
     if (checkin && !plan) {
       fetchSessionPlan(checkin, tw)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const fetchSessionPlan = useCallback(async (checkin: CheckinData, tw: number) => {

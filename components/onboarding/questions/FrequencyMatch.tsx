@@ -41,7 +41,9 @@ export function FrequencyMatch({ value, onChange, onContinue }: Props) {
 
   function playTone() {
     if (!audioCtxRef.current || audioCtxRef.current.state === "closed") {
-      audioCtxRef.current = new (window.AudioContext || (window as any).webkitAudioContext)()
+      type AudioContextConstructor = typeof AudioContext
+      const Ctx = (window.AudioContext || (window as Window & { webkitAudioContext?: AudioContextConstructor }).webkitAudioContext) as AudioContextConstructor
+      audioCtxRef.current = new Ctx()
     }
     if (audioCtxRef.current.state === "suspended") {
       audioCtxRef.current.resume()

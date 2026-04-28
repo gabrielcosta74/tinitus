@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { motion } from "framer-motion"
 import { CheckCircle2, ChevronRight, Loader2 } from "lucide-react"
 import { saveTodayCheckin, todayKey } from "@/lib/dashboard-storage"
 import type { CheckinData } from "@/types/dashboard"

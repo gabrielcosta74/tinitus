@@ -1,4 +1,4 @@
-import type { Exercise, SessionLog } from "@/types/session"
+import type { SessionLog } from "@/types/session"
 import { todayKey } from "./dashboard-storage"
 
 // --- Session log persistence ---

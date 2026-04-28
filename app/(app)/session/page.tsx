@@ -83,12 +83,12 @@ export default function SessionPage() {
     const plan = loadSessionPlan()
     const tw = getTherapyWeek()
     const s = calculateStreak()
-    const module = plan?.module ?? "Psychoeducation"
-    setSessionModule(module)
+    const sessionMod = plan?.module ?? "Psychoeducation"
+    setSessionModule(sessionMod)
     setTherapyWeek(tw)
     setStreak(s)
 
-    const ex = getExercisesForModule(module, tw)
+    const ex = getExercisesForModule(sessionMod, tw)
     setExercises(ex)
   }, [])
 
